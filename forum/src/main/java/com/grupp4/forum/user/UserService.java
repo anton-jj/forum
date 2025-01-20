@@ -1,12 +1,15 @@
 package com.grupp4.forum.user;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
-    //private final UserRepository userRepository;
+    private final UserRepository userRepository;
+
 
     public User addUser(String username, String password) {
         if (username == null || username.isBlank()) {
