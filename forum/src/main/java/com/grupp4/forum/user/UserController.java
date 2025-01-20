@@ -1,5 +1,6 @@
 package com.grupp4.forum.user;
 
+import com.grupp4.forum.dto.CreateUserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +23,13 @@ public class UserController {
     create a new user
      */
     @PostMapping
-    public ResponseEntity<?> createUser(@RequestParam UserCreateDTO userDTO) {
-
+    public ResponseEntity<?> createUser(@RequestParam CreateUserDTO userDTO) {
+        try {
+            User user = userService.addUser(userDTO.getName(), userDTO.getPassword());
+            return ResponseEntity.ok(new ResponseUserDTO(user.getName(), user.getId()));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     /*
