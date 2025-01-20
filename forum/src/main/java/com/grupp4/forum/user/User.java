@@ -1,10 +1,12 @@
 package com.grupp4.forum.user;
 
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 import java.util.UUID;
 
+@Entity(name = "forum_user")
 public class User {
 
     @Id
