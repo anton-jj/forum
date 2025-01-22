@@ -6,8 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 @AllArgsConstructor
 @Data
-@RequiredArgsConstructor
 public class CreateUserDTO {
-    private String name;
     private String password;
+    private String name;
 }
