@@ -18,7 +18,7 @@ public class PostService {
     private final UserRepository userRepository;
 
 
-    public Post writePost(String content, UUID userId) {
+    public Post createPost(String content, UUID userId) {
 
         User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("Can not find user"));
         Post post = new Post(content, user);

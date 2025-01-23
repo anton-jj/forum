@@ -3,9 +3,11 @@ package com.grupp4.forum.user;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import lombok.Data;
 
 import java.util.UUID;
 
+@Data
 @Entity(name = "forum_user")
 public class User {
 
