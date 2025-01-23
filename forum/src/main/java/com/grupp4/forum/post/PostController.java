@@ -1,5 +1,6 @@
 package com.grupp4.forum.post;
 
+import com.grupp4.forum.dto.CreatePostDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+
 import java.util.UUID;
 
 @RestController
@@ -30,12 +31,6 @@ public class PostController {
         }
     }
 
-    public static class CreatePostDTO {
-
-        public String content;
-        public UUID userId;
-    }
-
     @AllArgsConstructor
     @Getter
     public static class PostResponseDTO {
@@ -43,7 +38,9 @@ public class PostController {
         private String content;
         private UUID userId;
         private String username;
-      //  private List<CommentController.CommentResponseDTO> comments;
+
+        //uncomment när commentcontroller är på plats
+//        private List<CommentController.CommentResponseDTO> comments;
 
         public static PostResponseDTO fromModel(Post post) {
             return new PostResponseDTO(
@@ -51,10 +48,11 @@ public class PostController {
                     post.getContent(),
                     post.getUser().getId(),
                     post.getUser().getName()
-//                    post.getComments().stream().map(CommentController.CommentResponseDTO::fromModel).toList()
+
+                    //uncomment när commentcontroller är på plats
+//                  post.getComments().stream().map(CommentController.CommentResponseDTO::fromModel).toList()
             );
         }
     }
-
 
 }
