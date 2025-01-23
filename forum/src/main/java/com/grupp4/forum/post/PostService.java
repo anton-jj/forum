@@ -11,6 +11,7 @@ import com.grupp4.forum.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.UUID;
@@ -33,5 +34,12 @@ public class PostService {
     //View all posts in forum with pagination
     public Collection<Post> getAllPosts(int page) {
         return postRepository.findAll(PageRequest.of(page, 10)).toList();
+    }
+
+
+    @Transactional
+    public void deletePost(UUID id){
+        Post post = postRepository.findById(id).orElseThrow(() ->new RuntimeException("Post not found"));
+        postRepository.delete(post);
     }
 }
