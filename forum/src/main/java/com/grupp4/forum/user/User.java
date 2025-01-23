@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.UUID;
 
-
+@Data
 @Entity(name = "forum_user")
 @NoArgsConstructor
 @AllArgsConstructor
