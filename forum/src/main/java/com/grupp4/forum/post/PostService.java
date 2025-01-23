@@ -1,5 +1,10 @@
-package com.grupp4.forum.post;
+/**
+ *
+ *
+ */
 
+
+package com.grupp4.forum.post;
 
 import com.grupp4.forum.user.User;
 import com.grupp4.forum.user.UserRepository;
@@ -18,17 +23,15 @@ public class PostService {
     private final UserRepository userRepository;
 
 
+  //Create posts
     public Post createPost(String content, UUID userId) {
-
         User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("Can not find user"));
         Post post = new Post(content, user);
         return postRepository.save(post);
     }
 
-    //Visa 10 inlägg åt gången
-    public Collection<Post> viewAllPosts(int page) {
+    //View all posts in forum with pagination
+    public Collection<Post> getAllPosts(int page) {
         return postRepository.findAll(PageRequest.of(page, 10)).toList();
     }
-
-
 }
