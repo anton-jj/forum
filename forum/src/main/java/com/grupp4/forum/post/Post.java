@@ -1,9 +1,9 @@
 package com.grupp4.forum.post;
 
 
-import com.grupp4.forum.comment.Comment;
 import com.grupp4.forum.user.User;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
@@ -17,6 +17,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class Post {
 
+    @Id
     private UUID id;
     private String content;
 
@@ -24,8 +25,8 @@ public class Post {
     @ManyToOne
     private User user;
 
-    @OneToMany
-    private List<Comment> comments;
+    //@OneToMany
+    //private List<Comment> comments;
 
     public Post(String content, User user){
 
