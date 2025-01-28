@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -20,7 +20,7 @@ public class UserController {
     /*
     create a new user
      */
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<?> createUser(@RequestBody CreateUserDTO userDTO) {
         try {
             User user = userService.addUser(userDTO.getName(), userDTO.getPassword());
@@ -30,18 +30,7 @@ public class UserController {
         }
     }
 
-    @GetMapping
-    public ResponseEntity<?> getAllUsers(){
-        try {
-            List<ResponseUserDTO> users = userService.getAllUsers();
-            return ResponseEntity.ok().body(users);
-        } catch (Exception e ) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-
-    }
-
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<?> updateUser (@PathVariable UUID id, @RequestBody CreateUserDTO userDTO) {
        try {
            User updatedUser = userService.updateUser(id, userDTO.getName(), userDTO.getPassword());
@@ -51,7 +40,7 @@ public class UserController {
        }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<?> getUserById(@PathVariable UUID id) {
         try {
             User user = userService.getUserById(id);
@@ -61,7 +50,7 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable UUID id) {
         try {
             userService.deleteUser(id);

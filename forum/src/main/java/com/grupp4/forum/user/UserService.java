@@ -1,14 +1,9 @@
 package com.grupp4.forum.user;
 
-import com.grupp4.forum.dto.ResponseUserDTO;
-import com.grupp4.forum.util.PasswordUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -16,7 +11,6 @@ import java.util.stream.Collectors;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final PasswordUtil passwordUtil;
 
     public User addUser(String username, String password) {
         if (username == null || username.isBlank()) {
@@ -35,19 +29,10 @@ public class UserService {
             throw new IllegalArgumentException("Password cannot be less than 7 characters.");
         }
 
-        String hashedPassword = passwordUtil.hashPassword(password);
 
-        User user = new User(username, hashedPassword);
+        User user = new User(username, password);
         return userRepository.save(user);
     }
-
-
-    public List<ResponseUserDTO> getAllUsers(){
-       List<User> users =  userRepository.findAll();
-       return users.stream().map(user -> new ResponseUserDTO(user.getName(), user.getId()))
-               .collect(Collectors.toList());
-    }
-
 
     public User updateUser(UUID id, String username, String password) {
         User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("User not found"));
