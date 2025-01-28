@@ -11,7 +11,6 @@ import java.util.UUID;
 @Entity(name = "forum_user")
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 public class User {
 
     @Id

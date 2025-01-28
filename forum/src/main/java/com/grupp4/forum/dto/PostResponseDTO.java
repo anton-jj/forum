@@ -1,9 +1,11 @@
 package com.grupp4.forum.dto;
 
 import com.grupp4.forum.post.Post;
+import com.grupp4.forum.comment.CommentController;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.List;
 import java.util.UUID;
 
 
@@ -14,7 +16,7 @@ public class PostResponseDTO {
     private String content;
     private UUID userId;
     private String username;
-//  private List<CommentController.CommentResponseDTO> comments;
+    //private List<CommentResponseDTO> comments;
 
     public static PostResponseDTO fromModel(Post post) {
         return new PostResponseDTO(
@@ -22,7 +24,7 @@ public class PostResponseDTO {
                 post.getContent(),
                 post.getUser().getId(),
                 post.getUser().getName()
-//              post.getComments().stream().map(CommentController.CommentResponseDTO::fromModel).toList()
+              //post.getComments().stream().map(CommentResponseDTO::fromModel).toList()
         );
     }
 }
