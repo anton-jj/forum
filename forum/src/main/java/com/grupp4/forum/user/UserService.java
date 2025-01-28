@@ -1,6 +1,7 @@
 package com.grupp4.forum.user;
 
 import com.grupp4.forum.dto.ResponseUserDTO;
+import com.grupp4.forum.util.PasswordUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordUtil passwordUtil;
 
     public User addUser(String username, String password) {
         if (username == null || username.isBlank()) {
@@ -33,8 +35,9 @@ public class UserService {
             throw new IllegalArgumentException("Password cannot be less than 7 characters.");
         }
 
+        String hashedPassword = passwordUtil.hashPassword(password);
 
-        User user = new User(username, password);
+        User user = new User(username, hashedPassword);
         return userRepository.save(user);
     }
 
@@ -49,7 +52,7 @@ public class UserService {
     public User updateUser(UUID id, String username, String password) {
         User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-        if ( username != null && !username.isBlank()) {
+        if (username != null && !username.isBlank()) {
             user.setName(username);
         }
 
@@ -61,5 +64,13 @@ public class UserService {
         }
         return userRepository.save(user);
     }
-    // Needs to include UUID, username and password
+
+    public User getUserById(UUID id) {
+        return userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("User not found"));
+    }
+
+    public void deleteUser(UUID id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        userRepository.delete(user);
+    }
 }
