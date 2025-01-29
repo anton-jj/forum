@@ -23,14 +23,14 @@ public class Post {
     @ManyToOne
     private User user;
 
-    //@OneToMany(mappedBy = "post")
-    //private List<Comment> comments;
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments;
 
     public Post(String content, User user){
 
         this.id = UUID.randomUUID();
         this.content = content;
         this.user = user;
-        //this.comments = new ArrayList<>();
+        this.comments = new ArrayList<>();
     }
 }

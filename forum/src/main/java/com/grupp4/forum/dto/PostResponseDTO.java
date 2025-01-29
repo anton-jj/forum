@@ -16,15 +16,15 @@ public class PostResponseDTO {
     private String content;
     private UUID userId;
     private String username;
-    //private List<CommentResponseDTO> comments;
+    private List<CommentResponseDTO> comments;
 
     public static PostResponseDTO fromModel(Post post) {
         return new PostResponseDTO(
                 post.getId(),
                 post.getContent(),
                 post.getUser().getId(),
-                post.getUser().getName()
-              //post.getComments().stream().map(CommentResponseDTO::fromModel).toList()
+                post.getUser().getName(),
+                post.getComments().stream().map(CommentResponseDTO::fromModel).toList()
         );
     }
 }
