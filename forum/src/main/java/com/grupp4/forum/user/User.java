@@ -3,6 +3,7 @@ package com.grupp4.forum.user;
 
 import com.grupp4.forum.comment.Comment;
 import com.grupp4.forum.post.Post;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -26,7 +27,7 @@ public class User {
     private String password;
 
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Post> posts;
 
     @OneToMany(mappedBy = "user")
